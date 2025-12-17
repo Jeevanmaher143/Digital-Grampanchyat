@@ -1,0 +1,86 @@
+.development-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px;
+}
+
+.dev-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.dev-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.development-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px;
+}
+
+.development-page h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #0f172a;
+}
+
+.dev-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+/* IMAGES */
+.dev-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.dev-images img {
+  width: 130px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}

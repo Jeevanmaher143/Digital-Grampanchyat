@@ -1,0 +1,216 @@
+/*
+  Base Styles: Replication of Tailwind classes
+  - bg-blue-600, text-white, shadow-md
+*/.profile-dropdown {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: white;
+  color: black;
+  min-width: 160px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.profile-menu a,
+.profile-menu button {
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.navbar {
+    background-color: #8c5d7b; /* blue-600 */
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
+    line-height: 1.5; 
+}
+
+/* Container Styles: Replication of max-w-7xl, mx-auto, px-4, sm:px-6, lg:px-8 */
+.navbar-container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) { /* sm: */
+    .navbar-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) { /* lg: */
+    .navbar-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* Layout Styles: flex justify-between h-16 items-center */
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem; /* h-16 */
+}
+
+/* Brand Styles: flex-shrink-0 font-bold text-xl */
+.navbar-brand {
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.navbar-brand a {
+    color: inherit; 
+    text-decoration: none;
+}
+
+/* --- Desktop Menu Styles --- */
+
+/* Desktop Menu Wrapper: hidden md:flex space-x-6 items-center */
+.nav-desktop-menu {
+    display: none;
+    align-items: center;
+}
+
+@media (min-width: 768px) { /* md: */
+    .nav-desktop-menu {
+        display: flex; 
+        gap: 1.5rem; /* space-x-6 */
+    }
+}
+
+/* Desktop Link Styles: hover:text-gray-200 */
+.nav-desktop-menu a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.nav-desktop-menu a:hover {
+    color: #e5e7eb; /* gray-200 */
+}
+
+/* Logout Button Styles: bg-red-500 px-3 py-1 rounded hover:bg-red-600 */
+.logout-button {
+    background-color: #ef4444; /* red-500 */
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #dc2626; /* red-600 */
+}
+
+
+/* --- Mobile Button Styles --- */
+
+/* Mobile Menu Button Wrapper: md:hidden flex items-center */
+.nav-mobile-button {
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) { /* md: */
+    .nav-mobile-button {
+        display: none;
+    }
+}
+
+.nav-toggle-button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* SVG Icon Styles: w-6 h-6 */
+.nav-icon {
+    width: 1.5rem; /* w-6 */
+    height: 1.5rem; /* h-6 */
+    display: block; 
+}
+
+
+/* --- Mobile Menu Dropdown Styles --- */
+
+/* Mobile Menu Dropdown: md:hidden bg-blue-500 px-4 pt-2 pb-4 space-y-1 */
+.nav-mobile-menu-wrapper {
+    background-color: #3b82f6; /* blue-500 */
+    padding: 0.5rem 1rem 1rem 1rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* space-y-1 */
+}
+
+@media (min-width: 768px) {
+    .nav-mobile-menu-wrapper {
+        display: none;
+    }
+}
+
+/* Mobile Link Styles: block hover:text-gray-200 */
+.nav-mobile-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color 0.15s ease-in-out;
+}
+
+.nav-mobile-link:hover {
+    color: #e5e7eb; /* gray-200 */
+}
+
+/* Mobile Logout Button: w-full text-left bg-red-500 px-3 py-1 rounded hover:bg-red-600 */
+.mobile-logout-button {
+    width: 100%;
+    text-align: left;
+    background-color: #ef4444; /* red-500 */
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out;
+    margin-top: 0.5rem;
+}
+
+.mobile-logout-button:hover {
+    background-color: #dc2626; /* red-600 */
+}

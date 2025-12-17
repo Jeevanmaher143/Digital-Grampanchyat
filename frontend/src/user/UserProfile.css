@@ -1,0 +1,43 @@
+.profile-container {
+  max-width: 900px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+}
+
+.profile-container h2 {
+  text-align: center;
+  color: #1f7a1f;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.profile-card h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.service-status {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.service-status.pending {
+  background: #fff3cd;
+}
+
+.service-status.approved {
+  background: #d4edda;
+}
+
+.service-status.rejected {
+  background: #f8d7da;
+}
+

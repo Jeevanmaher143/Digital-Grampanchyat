@@ -1,0 +1,114 @@
+/* PAGE WRAPPER */
+.manage-schemes {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px;
+}
+
+.manage-schemes h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+/* FORM */
+.scheme-form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.scheme-form input,
+.scheme-form textarea,
+.scheme-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+.scheme-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.scheme-form select {
+  background: #ffffff;
+}
+
+.scheme-form button {
+  background: #0f766e;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.scheme-form button:hover {
+  background: #115e59;
+}
+
+/* SCHEME LIST */
+.scheme-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* SCHEME CARD */
+.scheme-card {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #2563eb;
+  position: relative;
+}
+
+.scheme-card h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+
+.scheme-card p {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+/* SCHEME TYPE BADGE */
+.scheme-card p strong {
+  color: #0f172a;
+}
+
+/* DELETE BUTTON */
+.scheme-card button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.scheme-card button:hover {
+  background: #b91c1c;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .scheme-form {
+    padding: 15px;
+  }
+}

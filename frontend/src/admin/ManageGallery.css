@@ -1,0 +1,100 @@
+/* PAGE */
+.manage-gallery {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px;
+}
+
+.manage-gallery h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+/* FORM */
+.gallery-form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.gallery-form input,
+.gallery-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+.gallery-form button {
+  background: #0f766e;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.gallery-form button:hover {
+  background: #115e59;
+}
+
+/* GRID */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.gallery-card {
+  background: #f8fafc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gallery-card p {
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.gallery-card span {
+  display: inline-block;
+  margin: 0 10px 10px;
+  font-size: 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* DELETE BUTTON */
+.gallery-card button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.gallery-card button:hover {
+  background: #b91c1c;
+}
