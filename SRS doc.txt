@@ -1,5 +1,19 @@
-1XwUduNrJyOfqMBB : pass
+Jeevan@123 : pass
 
+demo user : demo@gmail.com
+pass :  123456
+
+demo Admin :admin@gram.com
+pass : admin123
+
+
+
+
+cursor Ai 
+bolt ai
+VO 
+Cline
+gituHUb copliot
 
 so i am needed this thing in website first is it is the web application means website i develope in MERN Stack 
 now in the User side website  user can see 

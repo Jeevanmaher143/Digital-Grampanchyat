@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 // ================= REGISTER =================
 exports.register = async (req, res) => {
   try {
-    const { fullName, email, password, mobile } = req.body;
+    const { fullName, email, password, mobile, village } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -14,12 +14,13 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
       fullName,
       email,
       password: hashedPassword,
       mobile,
-      role: "user"
+      village,
+      role: "user",
     });
 
     res.status(201).json({ message: "User registered successfully" });
@@ -35,29 +36,35 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // 🔐 TOKEN WITH ROLE (VERY IMPORTANT)
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      {
+        id: user._id,
+        role: user.role,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // ✅ IMPORTANT: DO NOT SEND PASSWORD
+    // ✅ SAFE USER DATA
     const userData = {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
+      mobile: user.mobile,
+      village: user.village,
       role: user.role,
     };
 
-    res.json({
+    res.status(200).json({
       token,
       user: userData,
     });

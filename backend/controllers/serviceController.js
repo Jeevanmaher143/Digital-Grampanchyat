@@ -1,3 +1,5 @@
+//const ServiceApplication = require("../models/ServiceApplication");
+const path = require("path");
 const ServiceApplication = require("../models/ServiceApplication");
 
 // ================= USER: APPLY FOR SERVICE =================
@@ -7,11 +9,24 @@ exports.applyService = async (req, res) => {
       serviceType,
       fullName,
       address,
-      mobile
+      mobile,
+      deceasedName,
+      dateOfDeath,
     } = req.body;
 
     if (!serviceType || !fullName || !address || !mobile) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res
+        .status(400)
+        .json({ message: "All required fields are missing" });
+    }
+
+    // ✅ FIXED DOCUMENT HANDLING
+    const documents = {};
+    if (req.files) {
+      Object.keys(req.files).forEach((field) => {
+        documents[field] = `/uploads/services/${req.files[field][0].filename}`;
+
+      });
     }
 
     const application = new ServiceApplication({
@@ -20,20 +35,22 @@ exports.applyService = async (req, res) => {
       fullName,
       address,
       mobile,
-      documents: req.files ? req.files.map(file => file.path) : []
+      deceasedName,
+      dateOfDeath,
+      documents,
+      status: "Pending",
     });
 
     await application.save();
 
     res.status(201).json({
       message: "Application submitted successfully",
-      application
+      application,
     });
-
   } catch (error) {
-  console.error("APPLY SERVICE ERROR 👉", error);
-  res.status(500).json({ message: "Failed to submit application" });
-}
+    console.error("APPLY SERVICE ERROR 👉", error);
+    res.status(500).json({ message: "Failed to submit application" });
+  }
 };
 
 // ================= ADMIN: VIEW ALL APPLICATIONS =================
@@ -69,31 +86,7 @@ exports.updateApplicationStatus = async (req, res) => {
     await application.save();
 
     res.json({ message: `Application ${status} successfully` });
-
   } catch (error) {
     res.status(500).json({ message: "Failed to update application" });
-  }
-};
-
-// ================= USER: APPLY FOR SERVICE =================
-exports.applyService = async (req, res) => {
-  try {
-    const application = new ServiceApplication({
-      user: req.user._id,
-      serviceType: req.body.serviceType,
-      fullName: req.body.fullName,
-      address: req.body.address,
-      mobile: req.body.mobile,
-      documents: req.files?.map(file => file.path) || []
-    });
-
-    await application.save();
-
-    res.status(201).json({
-      message: "Application submitted successfully",
-      application
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to submit application" });
   }
 };

@@ -10,15 +10,21 @@ const {
   deleteNotice,
 } = require("../controllers/noticeController");
 
-// PUBLIC
+// ================= PUBLIC =================
 router.get("/", getAllNotices);
 
-// ADMIN
+// ================= ADMIN =================
+
+// ADD NOTICE
 router.post(
   "/",
   protect,
   adminOnly,
-  upload.single("attachment"), // 🔥 REQUIRED
+  (req, res, next) => {
+    req.uploadFolder = "notices"; // ✅ REQUIRED
+    next();
+  },
+  upload.single("attachment"),
   addNotice
 );
 
@@ -26,12 +32,15 @@ router.put(
   "/:id",
   protect,
   adminOnly,
+  (req, res, next) => {
+    req.uploadFolder = "notices"; // ✅ REQUIRED
+    next();
+  },
   upload.single("attachment"),
   updateNotice
 );
 
+// DELETE NOTICE
 router.delete("/:id", protect, adminOnly, deleteNotice);
-router.post("/", protect, adminOnly, addNotice);
-
 
 module.exports = router;

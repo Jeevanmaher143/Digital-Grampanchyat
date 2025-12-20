@@ -1,6 +1,6 @@
 const Development = require("../models/Development");
 
-// ADD
+// ADD PROJECT
 exports.addProject = async (req, res) => {
   try {
     const { projectName, description, progress, fundsUsed } = req.body;
@@ -11,16 +11,19 @@ exports.addProject = async (req, res) => {
 
     const status = Number(progress) === 100 ? "Completed" : "Ongoing";
 
+    // ✅ FIXED IMAGE PATH
     const images = req.files
-      ? req.files.map((file) => `/uploads/images/${file.filename}`)
+      ? req.files.map(
+          (file) => `/uploads/development/${file.filename}`
+        )
       : [];
 
     const project = await Development.create({
       projectName,
       description,
       progress: Number(progress),
+      fundsUsed: Number(fundsUsed),
       status,
-      fundsUsed,
       images,
     });
 
@@ -31,7 +34,7 @@ exports.addProject = async (req, res) => {
   }
 };
 
-// GET ALL
+// GET ALL PROJECTS
 exports.getProjects = async (req, res) => {
   try {
     const projects = await Development.find().sort({ createdAt: -1 });
@@ -42,7 +45,7 @@ exports.getProjects = async (req, res) => {
   }
 };
 
-// UPDATE
+// UPDATE PROJECT
 exports.updateProject = async (req, res) => {
   try {
     const { progress } = req.body;
@@ -60,7 +63,7 @@ exports.updateProject = async (req, res) => {
   }
 };
 
-// DELETE
+// DELETE PROJECT
 exports.deleteProject = async (req, res) => {
   try {
     await Development.findByIdAndDelete(req.params.id);

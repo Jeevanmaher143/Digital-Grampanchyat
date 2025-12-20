@@ -1,11 +1,13 @@
 import React from "react";
 import HeroSlider from "../components/home/HeroSlider";
-import NoticesPreview from "../components/home/NoticesPreview";
+import About from "./About"
 const Home = () => {
   return (
     <div>
       <HeroSlider/>
-      <NoticesPreview />
+
+      <About/>
+      
     </div>
   );
 };

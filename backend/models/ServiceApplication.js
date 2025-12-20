@@ -1,36 +1,58 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // ✅ REQUIRED
 
 const serviceApplicationSchema = new mongoose.Schema(
   {
-    serviceType: {
-      type: String,
-      required: true,
-    },
-    fullName: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    mobile: {
-      type: String,
-      required: true,
-    },
-    documents: [
-      {
-        type: String, // file path
-      },
-    ],
-    status: {
-      type: String,
-      default: "Pending", // Pending | Approved | Rejected
-    },
-    appliedBy: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true
     },
+
+    serviceType: {
+      type: String,
+      required: true
+    },
+
+    fullName: {
+      type: String,
+      required: true
+    },
+    email: {
+  type: String,
+  
+},
+
+
+    address: {
+      type: String,
+      required: true
+    },
+
+    mobile: {
+      type: String,
+      required: true
+    },
+
+    // Optional (for death certificate etc.)
+    deceasedName: String,
+    dateOfDeath: String,
+
+    // ✅ DOCUMENTS AS OBJECT (VERY IMPORTANT)
+    documents: {
+      type: Object,
+      default: {}
+    },
+
+    status: {
+      type: String,
+      enum: ["Pending", "Approved", "Rejected"],
+      default: "Pending"
+    },
+
+    adminRemark: {
+      type: String,
+      default: ""
+    }
   },
   { timestamps: true }
 );

@@ -1,82 +1,70 @@
 import React, { useEffect, useState } from "react";
-import "./ManageGallery.css";
+import './ManageGallery.css'
 
 const ManageGallery = () => {
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
+  const [file, setFile] = useState(null);
   const [caption, setCaption] = useState("");
-  const [category, setCategory] = useState("Event");
-  const [gallery, setGallery] = useState([]);
-
   const token = localStorage.getItem("token");
 
-  const fetchGallery = async () => {
+  const fetchImages = async () => {
     const res = await fetch("http://localhost:5000/api/gallery");
     const data = await res.json();
-    setGallery(data);
+    setImages(data);
   };
 
   useEffect(() => {
-    fetchGallery();
+    fetchImages();
   }, []);
 
   const uploadImage = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", file);
     formData.append("caption", caption);
-    formData.append("category", category);
 
     await fetch("http://localhost:5000/api/gallery", {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
 
+    setFile(null);
     setCaption("");
-    setImage(null);
-    fetchGallery();
+    fetchImages();
   };
 
   const deleteImage = async (id) => {
     await fetch(`http://localhost:5000/api/gallery/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
-    fetchGallery();
+    fetchImages();
   };
 
   return (
     <div className="manage-gallery">
       <h2>Manage Gallery</h2>
 
-      <form onSubmit={uploadImage} className="gallery-form">
-        <input type="file" onChange={(e) => setImage(e.target.files[0])} required />
+      <form onSubmit={uploadImage}>
+        <input type="file" required onChange={(e) => setFile(e.target.files[0])} />
         <input
-          placeholder="Caption (e.g. Blood Donation Camp by XYZ)"
+          type="text"
+          placeholder="Caption"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-          required
         />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option>Event</option>
-          <option>Development</option>
-          <option>Cultural</option>
-        </select>
-        <button type="submit">Upload</button>
+        <button type="submit">Upload Image</button>
       </form>
 
       <div className="gallery-grid">
-        {gallery.map((g) => (
-          <div className="gallery-card" key={g._id}>
-            <img src={`http://localhost:5000${g.image}`} alt="" />
-            <p>{g.caption}</p>
-            <span>{g.category}</span>
-            <button onClick={() => deleteImage(g._id)}>Delete</button>
+        {images.map((img) => (
+          <div key={img._id} className="image-card">
+            <img
+              src={`http://localhost:5000${img.image}`}
+              alt={caption || "Gallery image"}
+            />
+            <button onClick={() => deleteImage(img._id)}>Delete</button>
           </div>
         ))}
       </div>

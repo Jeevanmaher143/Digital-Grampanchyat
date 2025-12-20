@@ -13,7 +13,18 @@ const {
 router.get("/", getImages);
 
 // ADMIN
-router.post("/", protect, adminOnly, upload.single("image"), addImage);
+router.post(
+  "/",
+  protect,
+  adminOnly,
+  (req, res, next) => {
+    req.uploadFolder = "gallery"; // 🔥 IMPORTANT
+    next();
+  },
+  upload.single("image"),
+  addImage
+);
+
 router.delete("/:id", protect, adminOnly, deleteImage);
 
 module.exports = router;

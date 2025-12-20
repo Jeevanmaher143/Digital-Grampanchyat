@@ -14,7 +14,13 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      required:true,
       lowercase: true,
+      unique :true,     // Its get only unique Emails 
+    },
+    village: {               // Add village
+      type: String,
+      required: true,
     },
     password: {
       type: String,

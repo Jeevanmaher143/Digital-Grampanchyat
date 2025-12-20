@@ -19,6 +19,10 @@ router.post(
   "/",
   protect,
   adminOnly,
+  (req, res, next) => {
+    req.uploadFolder = "development"; // 🔥 VERY IMPORTANT
+    next();
+  },
   upload.array("images", 5),
   addProject
 );

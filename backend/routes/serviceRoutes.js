@@ -1,38 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const ServiceApplication = require("../models/ServiceApplication");
+
 const upload = require("../middlewares/uploadMiddleware");
 const { protect } = require("../middlewares/authMiddleware");
+const { applyService } = require("../controllers/serviceController");
 
+// APPLY FOR SERVICE
 router.post(
   "/apply",
   protect,
-  upload.array("documents", 5),
-  async (req, res) => {
-    try {
-      const { serviceType, fullName, address, mobile } = req.body;
-
-      const files = req.files ? req.files.map(f => f.path) : [];
-
-      const application = new ServiceApplication({
-        serviceType,
-        fullName,
-        address,
-        mobile,
-        documents: files,
-        appliedBy: req.user.id || req.user._id,
-      });
-
-      await application.save();
-
-      res.status(201).json({
-        message: "Service application submitted successfully",
-      });
-    } catch (err) {
-      console.error("Apply Service Error:", err);
-      res.status(500).json({ message: err.message });
-    }
-  }
+  (req, res, next) => {
+    req.uploadFolder = "services"; // ✅ REQUIRED
+    next();
+  },
+  upload.fields([
+    { name: "hospitalSlip", maxCount: 1 },
+    { name: "parentsAadhaar", maxCount: 1 },
+    { name: "addressProof", maxCount: 1 },
+    { name: "hospitalDeathSlip", maxCount: 1 },
+    { name: "deceasedAadhaar", maxCount: 1 },
+    { name: "applicantAadhaar", maxCount: 1 },
+    { name: "aadhaar", maxCount: 1 },
+    { name: "rationCard", maxCount: 1 },
+    { name: "incomeProof", maxCount: 1 },
+    { name: "electricityBill", maxCount: 1 }
+  ]),
+  applyService
 );
 
 module.exports = router;

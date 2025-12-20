@@ -1,40 +1,37 @@
 const Gallery = require("../models/Gallery");
+const fs = require("fs");
+const path = require("path");
 
-// ADD IMAGE (ADMIN)
+// ADD IMAGE
 exports.addImage = async (req, res) => {
   try {
-    const { caption, category } = req.body;
-
-    const imagePath = `/uploads/images/${req.file.filename}`;
-
-    const gallery = await Gallery.create({
-      image: imagePath,
-      caption,
-      category,
+    const gallery = new Gallery({
+      caption: req.body.caption,
+      image: `/uploads/gallery/${req.file.filename}`, // PUBLIC PATH
     });
 
+    await gallery.save();
     res.status(201).json(gallery);
-  } catch (error) {
-    res.status(500).json({ message: "Image upload failed" });
+  } catch (err) {
+    res.status(500).json({ message: "Gallery upload failed" });
   }
 };
 
-// GET ALL IMAGES (PUBLIC)
+// GET IMAGES
 exports.getImages = async (req, res) => {
-  try {
-    const images = await Gallery.find().sort({ createdAt: -1 });
-    res.json(images);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch gallery" });
-  }
+  const images = await Gallery.find().sort({ createdAt: -1 });
+  res.json(images);
 };
 
-// DELETE IMAGE (ADMIN)
+// DELETE IMAGE
 exports.deleteImage = async (req, res) => {
-  try {
-    await Gallery.findByIdAndDelete(req.params.id);
-    res.json({ message: "Image deleted" });
-  } catch (error) {
-    res.status(500).json({ message: "Delete failed" });
+  const image = await Gallery.findById(req.params.id);
+
+  if (image) {
+    const filePath = path.join(__dirname, "..", image.image);
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    await image.deleteOne();
   }
+
+  res.json({ message: "Image deleted" });
 };

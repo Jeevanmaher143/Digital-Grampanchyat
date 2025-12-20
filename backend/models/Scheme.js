@@ -10,6 +10,11 @@ const schemeSchema = new mongoose.Schema(
     benefits: String,
     eligibility: String,
     applyProcess: String,
+    applyLink: {
+  type: String,
+  default: ""
+},
+
     schemeType: {
       type: String,
       enum: ["Central", "State"],
