@@ -1,1 +1,45 @@
-<div id='root'></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>E-Gram Panchayat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- Hidden Google Translate -->
+    <div id="google_translate_element" style="display:none"></div>
+
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,mr",
+            autoDisplay: false
+          },
+          "google_translate_element"
+        );
+      }
+
+      // SAFE language switch
+      window.changeLanguage = function (lang) {
+        const interval = setInterval(() => {
+          const select = document.querySelector(".goog-te-combo");
+          if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event("change"));
+            clearInterval(interval);
+          }
+        }, 300);
+      };
+    </script>
+
+    <script
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      async
+    ></script>
+  </body>
+</html>

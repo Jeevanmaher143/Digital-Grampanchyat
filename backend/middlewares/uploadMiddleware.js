@@ -1,39 +1,44 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const folder = req.uploadFolder || "services"; // default
-    const uploadPath = path.join("uploads", folder);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    const isImage = file.mimetype.startsWith("image");
 
-    // create folder if not exists
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-
-    cb(null, uploadPath);
-  },
-
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    return {
+      folder: req.uploadFolder || "gram-panchayat",
+      resource_type: isImage ? "image" : "raw", // ✅ image / pdf / doc
+      public_id: `${Date.now()}-${file.originalname
+        .split(".")
+        .slice(0, -1)
+        .join(".")}`, // ✅ SAFE ID
+    };
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpg|jpeg|png|pdf|doc|docx/;
-  const ext = allowedTypes.test(
-    path.extname(file.originalname).toLowerCase()
-  );
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/jpg",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
 
-  if (ext) cb(null, true);
-  else cb(new Error("Only images or documents allowed"));
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only images or PDF/DOC files allowed"), false);
+  }
 };
 
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 2 * 1024 * 1024 }, // ✅ 5MB
 });
 
 module.exports = upload;

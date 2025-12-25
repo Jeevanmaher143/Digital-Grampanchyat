@@ -4,19 +4,26 @@ import AppRoutes from "./routes";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import { AuthProvider } from "./context/AuthContext";
-
+import { Toaster } from "react-hot-toast";
 function App() {
   const location = useLocation();
 
-  // ✅ Hide footer on admin routes
+  // ✅ Check admin route
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
+    <>
+    <Toaster position="top-right" />
     <AuthProvider>
-      <Navbar />
+      {/* ✅ Hide Navbar on admin routes */}
+      {!isAdminRoute && <Navbar />}
+
       <AppRoutes />
+
+      {/* ✅ Hide Footer on admin routes */}
       {!isAdminRoute && <Footer />}
     </AuthProvider>
+    </>
   );
 }
 

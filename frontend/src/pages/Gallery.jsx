@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from "react";
+import "./Gallery.css";
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/gallery")
+    fetch(
+      `${
+        process.env.REACT_APP_API_URL ||
+        "https://backend-9i6n.onrender.com"
+      }/api/gallery`
+    )
       .then((res) => res.json())
-      .then(setImages);
+      .then((data) => setImages(Array.isArray(data) ? data : []))
+      .catch(console.error);
   }, []);
 
   return (
-    <div>
+    <div className="gallery-page">
       <h2>Village Gallery</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 15 }}>
+
+      <div className="gallery-grid">
         {images.map((img) => (
-          <img
-            key={img._id}
-            src={`http://localhost:5000${img.image}`}
-            alt=""
-            style={{ width: "100%", height: 200, objectFit: "cover" }}
-          />
+          <div key={img._id} className="gallery-card">
+            <img
+              src={img.image}
+              alt={img.caption || "Gallery Image"}
+              className="gallery-img"
+              loading="lazy"
+            />
+
+            {/* ✅ ONE LINE CAPTION */}
+            {img.caption && (
+              <p className="gallery-caption">{img.caption}</p>
+            )}
+          </div>
         ))}
       </div>
     </div>

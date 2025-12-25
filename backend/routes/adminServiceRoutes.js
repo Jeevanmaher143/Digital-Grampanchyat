@@ -24,6 +24,11 @@ router.get("/", protect, adminOnly, async (req, res) => {
 /* ===============================
    UPDATE STATUS (APPROVE / REJECT)
 ================================ */
-router.put("/:id/status", protect, adminOnly, updateApplicationStatus);
+router.put(
+  "/:id/status",
+  protect,
+  adminOnly,
+  updateApplicationStatus
+);
 
 module.exports = router;

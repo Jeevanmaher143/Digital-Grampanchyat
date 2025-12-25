@@ -13,18 +13,16 @@ exports.addProject = async (req, res) => {
 
     // ✅ FIXED IMAGE PATH
     const images = req.files
-      ? req.files.map(
-          (file) => `/uploads/development/${file.filename}`
-        )
+      ? req.files.map((file) => file.path) // Cloudinary gives URL in file.path
       : [];
 
     const project = await Development.create({
-      projectName,
+     projectName,
       description,
-      progress: Number(progress),
-      fundsUsed: Number(fundsUsed),
       status,
-      images,
+      progress,
+      fundsUsed,
+      images
     });
 
     res.status(201).json(project);

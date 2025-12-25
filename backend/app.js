@@ -1,14 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-// ✅ SERVE UPLOADS (ONLY ONCE, AT TOP)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ROUTES
 app.use("/api/auth", require("./routes/authRoutes"));

@@ -10,7 +10,7 @@ router.post(
   "/apply",
   protect,
   (req, res, next) => {
-    req.uploadFolder = "services"; // ✅ REQUIRED
+    req.uploadFolder = "services"; // ✅ correct
     next();
   },
   upload.fields([

@@ -1,8 +1,6 @@
-//const ServiceApplication = require("../models/ServiceApplication");
-const path = require("path");
 const ServiceApplication = require("../models/ServiceApplication");
 
-// ================= USER: APPLY FOR SERVICE =================
+/* ================= USER APPLY ================= */
 exports.applyService = async (req, res) => {
   try {
     const {
@@ -15,17 +13,13 @@ exports.applyService = async (req, res) => {
     } = req.body;
 
     if (!serviceType || !fullName || !address || !mobile) {
-      return res
-        .status(400)
-        .json({ message: "All required fields are missing" });
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // ✅ FIXED DOCUMENT HANDLING
     const documents = {};
     if (req.files) {
       Object.keys(req.files).forEach((field) => {
-        documents[field] = `/uploads/services/${req.files[field][0].filename}`;
-
+        documents[field] = req.files[field][0].path || req.files[field][0].secure_url;
       });
     }
 
@@ -53,20 +47,7 @@ exports.applyService = async (req, res) => {
   }
 };
 
-// ================= ADMIN: VIEW ALL APPLICATIONS =================
-exports.getAllApplications = async (req, res) => {
-  try {
-    const applications = await ServiceApplication.find()
-      .populate("user", "fullName mobile email")
-      .sort({ createdAt: -1 });
-
-    res.json(applications);
-  } catch (error) {
-    res.status(500).json({ message: "Unable to fetch applications" });
-  }
-};
-
-// ================= ADMIN: APPROVE / REJECT =================
+/* ================= ADMIN UPDATE STATUS ================= */
 exports.updateApplicationStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -87,6 +68,7 @@ exports.updateApplicationStatus = async (req, res) => {
 
     res.json({ message: `Application ${status} successfully` });
   } catch (error) {
+    console.error("UPDATE STATUS ERROR 👉", error);
     res.status(500).json({ message: "Failed to update application" });
   }
 };
