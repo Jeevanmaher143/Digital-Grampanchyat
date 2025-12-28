@@ -3,10 +3,6 @@ Jeevan@123 : pass
 demo user : demo@gmail.com
 pass :  123456
 
-demo Admin :admin@gram.com
-pass : admin123
-
-
 
 
 cursor Ai 
